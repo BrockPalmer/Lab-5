@@ -25,7 +25,9 @@ import pkgPoker.app.MainApp;
 import pkgPokerEnum.eAction;
 import pkgPokerEnum.eGame;
 import pkgPokerBLL.Action;
+import pkgPokerBLL.Card;
 import pkgPokerBLL.GamePlay;
+import pkgPokerBLL.Hand;
 import pkgPokerBLL.Player;
 import pkgPokerBLL.Table;
 
@@ -215,8 +217,43 @@ public class PokerTableController implements Initializable {
 	
 
 	public void Handle_GameState(GamePlay HubPokerGame) {
-
-	}
+	// Not sure how to handle the cards... Testing to find the position for all the cards
+	//in handle the actual drawing 
+		
+	//I don't know where to implement visibility of card as well I made a getter and setter like mentioned in leacture
+	//however I don't understand where to implement	
+		Hand h= new Hand();
+		Player p= new Player();
+		for (Card c: h.getCardsInHand()){
+			
+			if(mainApp.getPlayer().equals(p))
+			{ 
+				if(p.getiPlayerPosition() == 1)
+				// Is the player in one?
+				{
+					hboxP1Cards.getChildren().add(BuildImage(c.getiCardNbr()));
+				}
+				//Is the player in two? 
+				if(p.getiPlayerPosition() == 2)
+					hboxP2Cards.getChildren().add(BuildImage(c.getiCardNbr()));
+				}
+			
+		else{
+			//boolean of if a card is visible in the for loop basically allows the cards
+			// to build the right image
+			if(c.isVisible()){ 
+		
+					if(p.getiPlayerPosition() == 1){
+						hboxP1Cards.getChildren().add(BuildImage(c.getiCardNbr()));
+					}
+					else{
+						hboxP2Cards.getChildren().add(BuildImage(c.getiCardNbr()));
+					}
+				}
+	
+			}
+		  }
+		}
 
 	private ImageView BuildImage(int iCardNbr) {
 		String strImgPath;
